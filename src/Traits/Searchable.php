@@ -15,7 +15,7 @@ trait Searchable
                 config('app.name'),
                 config('app.env'),
                 $this->getTable(),
-            ]),            
+            ]),
             '.'
         );
     }

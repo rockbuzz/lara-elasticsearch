@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Rockbuzz\LaraCwApi\ServiceProvider;
+use Rockbuzz\LaraElasticSearch\ServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase

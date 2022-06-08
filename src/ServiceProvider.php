@@ -21,7 +21,7 @@ class ServiceProvider extends SupportServiceProvider
     {
         $this->app->bind(Client::class, function ($app) {
             return ClientBuilder::create()
-                ->setHosts(config('services.search.hosts'))
+                ->setHosts(config('services.search.hosts', []))
                 ->build();
         });
     }

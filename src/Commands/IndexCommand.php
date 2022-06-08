@@ -38,35 +38,29 @@ class IndexCommand extends Command
         $models = explode(',', $this->argument('models'));
 
         foreach ($models as $model) {
-
             if (file_exists(app_path("Models/$model.php"))) {
-
                 $class = "\\App\\Models\\$model";
                 $interface = Searchable::class;
 
-                if ((new ReflectionClass($class))->implementsInterface($interface)){
-
+                if ((new ReflectionClass($class))->implementsInterface($interface)) {
                     $this->info("Indexing all {$model}. This might take a while...");
 
                     $this->index("\\App\\Models\\$model");
             
                     $this->info("\nDone!");
-
                 } else {
                     $this->warn("$class does not implement interface $interface");
                 }
-
             } else {
                 $this->warn("$model does not exists.");
             }
-
-        }        
+        }
     }
 
     protected function index(string $class)
     {
-        $class::chunkById(100, function($rows){
-            foreach ($rows as $row){
+        $class::chunkById(100, function ($rows) {
+            foreach ($rows as $row) {
                 $this->client->index([
                     'index' => $row->getSearchIndex(),
                     'id' => $row->getSearchId(),
