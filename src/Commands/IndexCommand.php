@@ -4,8 +4,8 @@ namespace Rockbuzz\LaraElasticSearch\Commands;
 
 use ReflectionClass;
 use Elasticsearch\Client;
-use App\Contracts\Searchable;
 use Illuminate\Console\Command;
+use Rockbuzz\LaraElasticSearch\Contracts\Searchable;
 
 class IndexCommand extends Command
 {
@@ -65,12 +65,12 @@ class IndexCommand extends Command
 
     protected function index(string $class)
     {
-        $class::chunkById(100, function($votes){
-            foreach ($votes as $vote){
+        $class::chunkById(100, function($rows){
+            foreach ($rows as $row){
                 $this->client->index([
-                    'index' => $vote->getSearchIndex(),
-                    'id' => $vote->getSearchId(),
-                    'body' => $vote->getSearchBody(),
+                    'index' => $row->getSearchIndex(),
+                    'id' => $row->getSearchId(),
+                    'body' => $row->getSearchBody(),
                 ]);
     
                 $this->output->write('.');

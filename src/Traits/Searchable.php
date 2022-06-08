@@ -2,6 +2,7 @@
 
 namespace Rockbuzz\LaraElasticSearch\Traits;
 
+use Elasticsearch\Client;
 use Illuminate\Support\Str;
 
 trait Searchable
@@ -26,5 +27,29 @@ trait Searchable
     public function getSearchBody()
     {
         return $this->toArray();
+    }
+
+    public function searchIndex(Client $client)
+    {
+        $client->index([
+            'index' => $this->getSearchIndex(),
+            'id' => $this->getSearchId(),
+            'body' => $this->getSearchBody()
+        ]);
+    }
+
+    public function searchDelete(Client $client)
+    {
+        $client->delete([
+            'index' => $this->getSearchIndex(),
+            'id' => $this->getSearchId()
+        ]);
+    }
+
+    public static function bootSearchable()
+    {
+        if (config('services.search.enabled')) {
+            static::observe(ElasticsearchObserver::class);
+        }
     }
 }
