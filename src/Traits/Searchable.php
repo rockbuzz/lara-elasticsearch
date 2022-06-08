@@ -4,6 +4,7 @@ namespace Rockbuzz\LaraElasticSearch\Traits;
 
 use Elasticsearch\Client;
 use Illuminate\Support\Str;
+use Rockbuzz\LaraElasticSearch\Observers\SearchObserver;
 
 trait Searchable
 {
@@ -49,7 +50,7 @@ trait Searchable
     public static function bootSearchable()
     {
         if (config('services.search.enabled')) {
-            static::observe(ElasticsearchObserver::class);
+            static::observe(SearchObserver::class);
         }
     }
 }

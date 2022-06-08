@@ -4,7 +4,7 @@ namespace Rockbuzz\LaraElasticSearch\Observers;
 
 use Elasticsearch\Client;
 
-class ElasticsearchObserver
+class SearchObserver
 {
     /** @var Client */
     private $client;

@@ -16,8 +16,15 @@ $ composer require rockbuzz/lara-elasticsearch
 
 ## Usage
 
+```env
+ELASTICSEARCH_ENABLED=true
+ELASTICSEARCH_HOSTS="__elasticsearch__:9200"
+ELASTICSEARCH_LOGS_INDEX="app.local.logs"
+```
+
 ```php
 //config/services.php
+<?php
 return [
 
     /*
@@ -39,9 +46,34 @@ return [
     //....
 ];
 ```
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Rockbuzz\LaraElasticSearch\Contracts\Searchable;
+use Rockbuzz\LaraElasticSearch\Traits\Searchable as TraitsSearchable;
+
+class Article extends Model implements Searchable
+{
+    use TraitsSearchable;
+
+    //Optionally you can override the getSearchBody method, by default $this->toArray() is used
+    public function getSearchBody()
+    {
+        return [
+            //
+        ];
+    }
+}
+```
+
+Logging
 
 ```php
 //config/logging.php
+<?php
 return [
 
     /*
@@ -82,4 +114,4 @@ return [
 
 ## License
 
-The Lara Cw Api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Lara Elastic Search is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
