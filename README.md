@@ -68,6 +68,10 @@ class Article extends Model implements Searchable
     }
 }
 ```
+To index the data referring to a model, run:
+```bash
+$ php artisan search:index Article
+```
 
 Logging
 
