@@ -1,6 +1,6 @@
-# Lara Elastic Search
+# Laravel Elastic Search
 
-Lara Elastic Search
+Laravel Elastic Search integration
 
 <p><img src="https://github.com/rockbuzz/lara-elasticsearch/workflows/Main/badge.svg"/></p>
 
@@ -101,12 +101,12 @@ return [
             'handler'        => \Monolog\Handler\ElasticsearchHandler::class,
             'formatter'      => \Monolog\Formatter\ElasticsearchFormatter::class,
             'formatter_with' => [
-                'index' => env('ELASTIC_LOGS_INDEX'),
+                'index' => env('ELASTICSEARCH_LOGS_INDEX'),
                 'type'  => '_doc',
             ],
             'handler_with'   => [
                 'client' => \Elasticsearch\ClientBuilder::create()
-                    ->setHosts([env('ELASTICSEARCH_HOSTS')])
+                    ->setHosts(explode(',', env('ELASTICSEARCH_HOSTS', '127.0.0.1:9200')))
                     ->build(),
             ],
         ],
