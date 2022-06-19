@@ -14,7 +14,9 @@ interface Searchable
 
     public function searchIndex(Client $client);
 
-    public function searchDelete(Client $client);
+    public function searchGet(Client $client);
 
-    public static function bootSearchable();
+    public function searchGetSource(Client $client);
+
+    public function searchDelete(Client $client);
 }

@@ -32,16 +32,32 @@ trait Searchable
 
     public function searchIndex(Client $client)
     {
-        $client->index([
+        return $client->index([
             'index' => $this->getSearchIndex(),
             'id' => $this->getSearchId(),
             'body' => $this->getSearchBody()
         ]);
     }
 
+    public function searchGet(Client $client)
+    {
+        return $client->get([
+            'index' => $this->getSearchIndex(),
+            'id' => $this->getSearchId()
+        ]);
+    }
+
+    public function searchGetSource(Client $client)
+    {
+        return $client->getSource([
+            'index' => $this->getSearchIndex(),
+            'id' => $this->getSearchId()
+        ]);
+    }
+
     public function searchDelete(Client $client)
     {
-        $client->delete([
+        return $client->delete([
             'index' => $this->getSearchIndex(),
             'id' => $this->getSearchId()
         ]);
